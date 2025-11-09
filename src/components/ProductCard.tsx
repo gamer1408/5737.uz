@@ -1,6 +1,15 @@
-import { Heart, ShoppingCart, Eye } from "lucide-react";
+import { Heart, ShoppingBag, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+import { useLikedProducts } from "@/hooks/useLikedProducts";
+import { useCart } from "@/hooks/useCart";
+import { useUserTracking } from "@/hooks/useUserTracking";
+import { animateToCart } from "@/lib/animate-to-cart";
+import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { ProductOverviewDialog } from "@/components/ProductOverviewDialog";
+import categories from "@/db/categories.json";
 
 interface ProductCardProps {
   id: number;
@@ -8,6 +17,7 @@ interface ProductCardProps {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[];
   category: string;
   badge?: string;
   rating?: number;
@@ -15,23 +25,83 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({
+  id,
   name,
   price,
   originalPrice,
   image,
+  images,
   category,
   badge,
   rating = 4.5,
   inStock = true,
 }: ProductCardProps) => {
+  const { addProduct, removeProduct, isLiked } = useLikedProducts();
+  const { addItem } = useCart();
+  const { trackView, trackLike, trackCartAdd } = useUserTracking();
+  const liked = isLiked(id);
+
+  // Get category ID for tracking
+  const categoryId = categories.find(cat => 
+    cat.productIds.includes(id)
+  )?.id || 1;
+
+  const handleLikeClick = () => {
+    if (liked) {
+      removeProduct(id);
+    } else {
+      addProduct({ id, name, price, image, category });
+      trackLike(id, categoryId);
+    }
+  };
+
+  const [buttonState, setButtonState] = useState<'default' | 'adding' | 'success'>('default');
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent form submission
+    if (buttonState !== 'default') return;
+    
+    // Start the animation sequence
+    setButtonState('adding');
+
+    // Find the cart button in the header
+    const cartButton = document.querySelector('[aria-label="Shopping cart"]');
+    if (buttonRef.current && cartButton) {
+      animateToCart({
+        sourceElement: buttonRef.current,
+        targetElement: cartButton as HTMLElement,
+      });
+    }
+
+    // Add item to cart
+    addItem({ id, name, price, image, category });
+    trackCartAdd(id, categoryId);
+
+    // Show success state
+    setTimeout(() => {
+      setButtonState('success');
+      
+      // Reset to default state after showing success
+      setTimeout(() => {
+        setButtonState('default');
+      }, 1500); // Show checkmark for 1.5 seconds
+    }, 750); // Wait for flying animation to complete
+  };
   const discount = originalPrice
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
+  // Track product view when component mounts
+  useEffect(() => {
+    trackView(id, categoryId);
+  }, [id, categoryId, trackView]);
+
   return (
-    <article className="group relative bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-smooth border border-border">
+    <ProductOverviewDialog product={{ id, name, price, image, images, category }}>
+      <article className="group relative bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-smooth border border-border cursor-pointer">
       {/* Product Image */}
-      <div className="relative aspect-square overflow-hidden bg-secondary">
+      <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
         <img
           src={image}
           alt={name}
@@ -58,43 +128,66 @@ const ProductCard = ({
           )}
         </div>
 
-        {/* Quick Actions */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-smooth">
-          <Button
-            size="icon"
-            variant="secondary"
-            className="h-9 w-9 rounded-full shadow-lg hover:scale-110 transition-smooth"
-            aria-label="Add to wishlist"
-          >
-            <Heart className="h-4 w-4" />
-          </Button>
-          <Button
-            size="icon"
-            variant="secondary"
-            className="h-9 w-9 rounded-full shadow-lg hover:scale-110 transition-smooth"
-            aria-label="Quick view"
-          >
-            <Eye className="h-4 w-4" />
-          </Button>
-        </div>
 
-        {/* Add to Cart - Hover Action */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-smooth">
+
+        {/* Action Icons */}
+        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {/* Like Icon */}
           <Button
-            className="w-full bg-primary hover:bg-primary-hover text-primary-foreground shadow-lg"
+            size="icon"
+            className={cn(
+              "h-10 w-10 rounded-full shadow-lg transition-all duration-300",
+              liked ? "bg-primary text-white hover:bg-primary-hover" : "bg-white hover:bg-primary text-gray-700 hover:text-white"
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleLikeClick();
+            }}
+            onMouseDown={(e) => e.stopPropagation()}
+            aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
+          >
+            <Heart className={cn("h-5 w-5", liked && "fill-current")} />
+          </Button>
+          
+          {/* Shop Icon */}
+          <Button
+            ref={buttonRef}
+            size="icon"
+            className={cn(
+              "h-10 w-10 rounded-full shadow-lg transition-all duration-300",
+              buttonState === 'default' && "bg-white hover:bg-blue-500 text-gray-700 hover:text-white",
+              buttonState === 'adding' && "bg-blue-500 text-white scale-110",
+              buttonState === 'success' && "bg-green-500 text-white scale-110"
+            )}
             disabled={!inStock}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleAddToCart(e);
+            }}
+            onMouseDown={(e) => e.stopPropagation()}
             aria-label={`Add ${name} to cart`}
           >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
+            {buttonState === 'success' ? (
+              <Check className="h-5 w-5" />
+            ) : (
+              <ShoppingBag className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>
 
       {/* Product Info */}
       <div className="p-4 space-y-2">
-        <p className="text-sm text-muted-foreground font-medium">{category}</p>
-        <h3 className="font-semibold text-base line-clamp-2 text-foreground">
+        <Link 
+          to={`/category/${categories.find(cat => cat.productIds.includes(id))?.id || 1}`}
+          className="text-xs text-muted-foreground font-medium hover:text-primary transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {category}
+        </Link>
+        <h3 className="font-medium text-sm line-clamp-2 text-foreground">
           {name}
         </h3>
 
@@ -104,7 +197,7 @@ const ProductCard = ({
             {[...Array(5)].map((_, i) => (
               <span
                 key={i}
-                className={`text-sm ${
+                className={`text-xs ${
                   i < Math.floor(rating)
                     ? "text-accent"
                     : "text-muted-foreground"
@@ -122,7 +215,7 @@ const ProductCard = ({
 
         {/* Price */}
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-foreground">
+          <span className="text-base font-bold text-foreground">
             {price.toLocaleString()} UZS
           </span>
           {originalPrice && (
@@ -132,7 +225,8 @@ const ProductCard = ({
           )}
         </div>
       </div>
-    </article>
+      </article>
+    </ProductOverviewDialog>
   );
 };
 

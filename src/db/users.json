@@ -1,0 +1,106 @@
+[
+  {
+    "id": "1762612915589",
+    "email": "jonyjoonii@gmail.com",
+    "password": "9b7ecc6eeb83abf9ade10fe38865df4499be3568dcc507ae2ec3b44989cb0093",
+    "LPID": "LPID_1762612915518_qkvo1aocd",
+    "profile": {
+      "firstName": "dd",
+      "lastName": "",
+      "phone": ""
+    },
+    "status": {
+      "current": "active",
+      "lastLoginAt": "2025-11-08T14:41:55.590Z"
+    },
+    "createdAt": "2025-11-08T14:41:55.590Z",
+    "likedProducts": [],
+    "viewHistory": [],
+    "searchHistory": [],
+    "cart": [],
+    "orderHistory": [],
+    "preferences": {
+      "language": "uz",
+      "currency": "UZS",
+      "notifications": true
+    }
+  },
+  {
+    "id": "1762614312945",
+    "email": "urozaliyevyahyobek@gmail.com",
+    "password": "61be55a8e2f6b4e172338bddf184d6dbee29c98853e0a0485ecee7f27b9af0b4",
+    "LPID": "LPID_1762614312930_22g5wix0z",
+    "profile": {
+      "firstName": "aaaa",
+      "lastName": "",
+      "phone": ""
+    },
+    "status": {
+      "current": "active",
+      "lastLoginAt": "2025-11-08T15:05:25.160Z"
+    },
+    "createdAt": "2025-11-08T15:05:12.949Z",
+    "likedProducts": [],
+    "viewHistory": [],
+    "searchHistory": [],
+    "cart": [],
+    "orderHistory": [],
+    "preferences": {
+      "language": "uz",
+      "currency": "UZS",
+      "notifications": true
+    }
+  },
+  {
+    "id": "1762614357082",
+    "email": "formysdflk@gmail.com",
+    "password": "9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0",
+    "LPID": "LPID_1762614357066_74hjc6ony",
+    "profile": {
+      "firstName": "sss",
+      "lastName": "",
+      "phone": ""
+    },
+    "status": {
+      "current": "active",
+      "lastLoginAt": "2025-11-08T15:09:16.982Z"
+    },
+    "createdAt": "2025-11-08T15:05:57.084Z",
+    "likedProducts": [],
+    "viewHistory": [],
+    "searchHistory": [],
+    "cart": [],
+    "orderHistory": [],
+    "preferences": {
+      "language": "uz",
+      "currency": "UZS",
+      "notifications": true
+    }
+  },
+  {
+    "id": "1762615446179",
+    "email": "slivna@gmail.com",
+    "password": "64daa44ad493ff28a96effab6e77f1732a3d97d83241581b37dbd70a7a4900fe",
+    "LPID": "LPID_1762615446168_ykm0to2vm",
+    "profile": {
+      "firstName": "ccc",
+      "lastName": "",
+      "phone": ""
+    },
+    "status": {
+      "current": "active",
+      "lastLoginAt": "2025-11-08T16:16:26.824Z"
+    },
+    "createdAt": "2025-11-08T15:24:06.181Z",
+    "likedProducts": [],
+    "viewHistory": [],
+    "searchHistory": [],
+    "cart": [],
+    "orderHistory": [],
+    "preferences": {
+      "language": "uz",
+      "currency": "UZS",
+      "notifications": true
+    }
+  }
+]

@@ -1,19 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, Search, Menu, X, User, Heart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import React from "react";
+import SignInModal from "@/components/SignInModal";
+import { LikedProductsDialog } from "@/components/LikedProductsDialog";
+import { ShoppingCartDialog } from "@/components/ShoppingCartDialog";
+import { useSearchHistory } from "@/hooks/useSearchHistory";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(3);
+  const [signedIn, setSignedIn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const { addSearch } = useSearchHistory();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      addSearch(searchQuery.trim());
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Shop", href: "/shop" },
-    { name: "Gifts & Bonuses", href: "/rewards" },
-    { name: "About Us", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Bosh sahifa", href: "/" },
+    { name: "Do'kon", href: "/shop" },
+    { name: "Sovg'alar va bonuslar", href: "/rewards" },
+    { name: "Biz haqimizda", href: "/about" },
+    { name: "Aloqa", href: "/contact" },
   ];
 
   return (
@@ -21,72 +39,64 @@ const Header = () => {
       <nav className="container-premium" aria-label="Main navigation">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <a 
+            href="/" 
             className="flex items-center space-x-2 group"
             aria-label="5737.UZ Home"
+            onClick={() => window.location.reload()}
           >
             <div className="text-3xl font-bold gradient-text transition-smooth group-hover:scale-105">
               5737.UZ
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
-                to={item.href}
+                href={item.href}
                 className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-smooth rounded-lg hover:bg-secondary"
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </div>
 
           {/* Search Bar */}
           <div className="hidden lg:flex items-center max-w-md w-full mx-8">
-            <div className="relative w-full">
+            <form onSubmit={handleSearch} className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <Input
                 type="search"
-                placeholder="Search products..."
+                placeholder="Mahsulotlarni qidirish..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 w-full"
-                aria-label="Search products"
+                aria-label="Mahsulotlarni qidirish"
               />
-            </div>
+            </form>
           </div>
 
           {/* Actions */}
           <div className="flex items-center space-x-2">
+            <div className="hidden sm:flex">
+              <LikedProductsDialog />
+            </div>
             <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hidden sm:flex"
-              aria-label="Wishlist"
-            >
-              <Heart className="h-5 w-5" />
-            </Button>
-            <Button 
-              variant="ghost" 
+              variant="ghost"
               size="icon"
               aria-label="Account"
             >
-              <User className="h-5 w-5" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="relative"
-              aria-label={`Shopping cart with ${cartCount} items`}
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-semibold">
-                  {cartCount}
-                </span>
+              {signedIn ? (
+                <Link to="/profile">
+                  <User className="h-5 w-5" />
+                </Link>
+              ) : (
+                <SignInModal onSignIn={() => setSignedIn(true)} />
               )}
             </Button>
+            <ShoppingCartDialog />
             <Button
               variant="ghost"
               size="icon"
@@ -108,25 +118,27 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 space-y-2 animate-slide-down">
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
-                to={item.href}
+                href={item.href}
                 className="block px-4 py-3 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-lg transition-smooth"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
             <div className="px-4 pt-4">
-              <div className="relative">
+              <form onSubmit={handleSearch} className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
                 <Input
                   type="search"
-                  placeholder="Search products..."
+                  placeholder="Mahsulotlarni qidirish..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 pr-4 w-full"
-                  aria-label="Search products"
+                  aria-label="Mahsulotlarni qidirish"
                 />
-              </div>
+              </form>
             </div>
           </div>
         )}

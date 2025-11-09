@@ -5,23 +5,23 @@ import { Button } from "@/components/ui/button";
 const heroSlides = [
   {
     id: 1,
-    title: "Discover Your Signature Style",
-    subtitle: "Curated Collections for Modern Uzbekistan",
-    cta: "Shop New Arrivals",
+    title: "O'zingizning imzo uslubingizni kashf eting",
+    subtitle: "Zamonaviy O'zbekiston uchun tanlangan kolleksiyalar",
+    cta: "Yangi kelganlarni xarid qiling",
     bgGradient: "from-primary via-primary-hover to-primary",
   },
   {
     id: 2,
-    title: "Exclusive Navruz Collection",
-    subtitle: "Celebrate Spring with Traditional Elegance",
-    cta: "Explore Collection",
+    title: "Eksklyuziv Navruz kolleksiyasi",
+    subtitle: "Bahorni an'anaviy nafislik bilan nishonlang",
+    cta: "Kolleksiyani kashf eting",
     bgGradient: "from-accent via-accent-hover to-accent",
   },
   {
     id: 3,
-    title: "Premium Quality Guaranteed",
-    subtitle: "Trusted by 50,000+ Uzbek Families",
-    cta: "Learn More",
+    title: "Premium sifat kafolatlangan",
+    subtitle: "50,000+ o'zbek oilalari ishonadi",
+    cta: "Batafsil ma'lumot",
     bgGradient: "from-primary via-accent to-primary",
   },
 ];
@@ -96,14 +96,14 @@ const Hero = () => {
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 rounded-full transition-smooth z-10"
-        aria-label="Previous slide"
+        aria-label="Oldingi slayd"
       >
         <ChevronLeft className="h-6 w-6 text-white" />
       </button>
       <button
         onClick={nextSlide}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 rounded-full transition-smooth z-10"
-        aria-label="Next slide"
+        aria-label="Keyingi slayd"
       >
         <ChevronRight className="h-6 w-6 text-white" />
       </button>
@@ -112,7 +112,7 @@ const Hero = () => {
       <div 
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10"
         role="tablist"
-        aria-label="Slide navigation"
+        aria-label="Slayd navigatsiyasi"
       >
         {heroSlides.map((_, index) => (
           <button
@@ -123,7 +123,7 @@ const Hero = () => {
                 ? "w-12 bg-white"
                 : "w-3 bg-white/50 hover:bg-white/75"
             }`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`${index + 1}-slaydga o'tish`}
             aria-selected={index === currentSlide}
             role="tab"
           />

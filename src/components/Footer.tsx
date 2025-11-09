@@ -1,29 +1,28 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     shop: [
-      { name: "New Arrivals", href: "/shop/new" },
-      { name: "Best Sellers", href: "/shop/bestsellers" },
-      { name: "Sale", href: "/shop/sale" },
-      { name: "Gift Cards", href: "/shop/gift-cards" },
+      { name: "Yangi kelganlar", href: "/shop/new" },
+      { name: "Eng ko'p sotilganlar", href: "/shop/bestsellers" },
+      { name: "Chegirma", href: "/shop/sale" },
+      { name: "Sovg'a kartalari", href: "/shop/gift-cards" },
     ],
     support: [
-      { name: "Contact Us", href: "/contact" },
-      { name: "FAQs", href: "/faq" },
-      { name: "Shipping Info", href: "/shipping" },
-      { name: "Returns & Exchanges", href: "/returns" },
+      { name: "Biz bilan bog'laning", href: "/contact" },
+      { name: "Tez-tez so'raladigan savollar", href: "/faq" },
+      { name: "Yetkazib berish ma'lumoti", href: "/shipping" },
+      { name: "Qaytarish va almashtirish", href: "/returns" },
     ],
     company: [
-      { name: "About Us", href: "/about" },
-      { name: "Our Story", href: "/story" },
-      { name: "Careers", href: "/careers" },
-      { name: "Press", href: "/press" },
+      { name: "Biz haqimizda", href: "/about" },
+      { name: "Bizning hikoyamiz", href: "/story" },
+      { name: "Karyera", href: "/careers" },
+      { name: "Matbuot", href: "/press" },
     ],
   };
 
@@ -37,27 +36,11 @@ const Footer = () => {
               <h2 className="text-3xl font-bold gradient-text">5737.UZ</h2>
             </Link>
             <p className="text-muted-foreground max-w-md">
-              Curated collections blending traditional Uzbek craftsmanship with modern elegance. Trusted by 50,000+ families across Uzbekistan.
+              An'anaviy o'zbek hunarmandchiligi va zamonaviy nafislikni uyg'unlashtirgan tanlangan kolleksiyalar. O'zbekiston bo'ylab 50,000+ oilalar ishonadi.
             </p>
             
             {/* Newsletter */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-foreground">
-                Subscribe to Our Newsletter
-              </h3>
-              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="max-w-xs"
-                  aria-label="Email for newsletter"
-                  required
-                />
-                <Button type="submit" className="bg-primary hover:bg-primary-hover">
-                  Subscribe
-                </Button>
-              </form>
-            </div>
+            <NewsletterSignup variant="footer" />
 
             {/* Social Media */}
             <div className="flex gap-4 pt-4">
@@ -93,7 +76,7 @@ const Footer = () => {
 
           {/* Links Sections */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground text-lg">Shop</h3>
+            <h3 className="font-semibold text-foreground text-lg">Do'kon</h3>
             <nav aria-label="Shop links">
               <ul className="space-y-2">
                 {footerLinks.shop.map((link) => (
@@ -111,7 +94,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground text-lg">Support</h3>
+            <h3 className="font-semibold text-foreground text-lg">Yordam</h3>
             <nav aria-label="Support links">
               <ul className="space-y-2">
                 {footerLinks.support.map((link) => (
@@ -129,7 +112,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground text-lg">Company</h3>
+            <h3 className="font-semibold text-foreground text-lg">Kompaniya</h3>
             <nav aria-label="Company links">
               <ul className="space-y-2">
                 {footerLinks.company.map((link) => (
@@ -151,26 +134,26 @@ const Footer = () => {
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} 5737.UZ. All rights reserved.
+              © {currentYear} 5737.UZ. Barcha huquqlar himoyalangan.
             </p>
             <div className="flex gap-6">
               <Link
                 to="/privacy"
                 className="text-sm text-muted-foreground hover:text-primary transition-smooth"
               >
-                Privacy Policy
+                Maxfiylik siyosati
               </Link>
               <Link
                 to="/terms"
                 className="text-sm text-muted-foreground hover:text-primary transition-smooth"
               >
-                Terms of Service
+                Xizmat shartlari
               </Link>
               <Link
                 to="/cookies"
                 className="text-sm text-muted-foreground hover:text-primary transition-smooth"
               >
-                Cookie Policy
+                Cookie siyosati
               </Link>
             </div>
           </div>

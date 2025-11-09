@@ -1,0 +1,15 @@
+{
+  "preferences": [
+    {
+      "user_id": "user_001",
+      "category_scores": {
+        "1": 15,
+        "2": 8,
+        "3": 3,
+        "4": 12
+      },
+      "last_updated": "2024-01-15T12:00:00Z",
+      "total_actions": 25
+    }
+  ]
+}

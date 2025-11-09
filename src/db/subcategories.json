@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "categoryId": 4,
+    "name": "Erkaklar kiyimi",
+    "description": "Chapan, ko'ylak, shimlar",
+    "productIds": [1, 2],
+    "icon": "👔",
+    "urgency": "Faqat 12 ta qoldi",
+    "socialProof": "Bu hafta 45 ta sotildi"
+  },
+  {
+    "id": 2,
+    "categoryId": 4,
+    "name": "Ayollar kiyimi",
+    "description": "Atlas ko'ylaklar, ro'mollar",
+    "productIds": [9, 11],
+    "icon": "👗",
+    "urgency": "Yangi kolleksiya",
+    "socialProof": "200+ mijoz yoqtirdi"
+  },
+  {
+    "id": 3,
+    "categoryId": 4,
+    "name": "Bolalar kiyimi",
+    "description": "Milliy uslubdagi bolalar kiyimi",
+    "productIds": [18],
+    "icon": "👶",
+    "urgency": "Chegirma tugaydi",
+    "socialProof": "Ota-onalar tanlovi"
+  },
+  {
+    "id": 4,
+    "categoryId": 5,
+    "name": "Gilam va to'shak",
+    "description": "Qo'lda to'qilgan gilamlar",
+    "productIds": [3, 5],
+    "icon": "🏠",
+    "urgency": "Premium sifat",
+    "socialProof": "Ekspert tavsiyasi"
+  },
+  {
+    "id": 5,
+    "categoryId": 5,
+    "name": "Oshxona buyumlari",
+    "description": "Keramika, idishlar",
+    "productIds": [7, 12],
+    "icon": "🍽️",
+    "urgency": "Handmade",
+    "socialProof": "Chef's choice"
+  },
+  {
+    "id": 6,
+    "categoryId": 5,
+    "name": "Dekorativ buyumlar",
+    "description": "Bezak va san'at asarlari",
+    "productIds": [14, 17, 20],
+    "icon": "🎨",
+    "urgency": "Limited edition",
+    "socialProof": "Kollektorlar sevimli"
+  },
+  {
+    "id": 7,
+    "categoryId": 6,
+    "name": "Sumkalar",
+    "description": "Qo'lda tikilgan sumkalar",
+    "productIds": [6, 8],
+    "icon": "👜",
+    "urgency": "Trend 2024",
+    "socialProof": "Fashion bloggerlar tanlovi"
+  },
+  {
+    "id": 8,
+    "categoryId": 6,
+    "name": "Ro'mollar",
+    "description": "Ipak va paxta ro'mollar",
+    "productIds": [13, 16],
+    "icon": "🧣",
+    "urgency": "Mavsumiy",
+    "socialProof": "Instagramda mashhur"
+  },
+  {
+    "id": 9,
+    "categoryId": 7,
+    "name": "Oltin buyumlar",
+    "description": "24k oltin zargarlik",
+    "productIds": [4, 10],
+    "icon": "💍",
+    "urgency": "Investitsiya",
+    "socialProof": "VIP mijozlar tanlovi"
+  },
+  {
+    "id": 10,
+    "categoryId": 7,
+    "name": "Kumush aksessuarlar",
+    "description": "925 kumush buyumlar",
+    "productIds": [15, 19],
+    "icon": "✨",
+    "urgency": "Yangi dizayn",
+    "socialProof": "Yosh avlod sevimli"
+  }
+]
